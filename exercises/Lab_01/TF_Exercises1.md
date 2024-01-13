@@ -52,3 +52,9 @@ Por ultimo, una vez implementes el uso de map() en tu ejercicio, deberás implem
 Seguridad durante la implementación:
 
  A fin de seguir buenas prácticas durante la implementación del ejercicio, las credenciales de API de Azure no podran exponerse en ningún momento en texto plano en el repositorio. Para ello deberás hacer uso de las variables correspondientes, o implementar mecanismos para que las variables no salgan de tu equipo.
+
+ Bonus track
+ Implementar el etiquetado de recursos aplicando al menos las siguientes 3 etiquetas a cada uno de los recursos que se creen mediante TF
+ - CompanyName = "DordoLabs"
+ - ProjectName = "TF_lab01"
+ - BillingCode = "201219DN"
