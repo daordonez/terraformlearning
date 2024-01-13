@@ -3,10 +3,6 @@
 echo "Loading ENV vars"
 . ./env.sh
 
-#echo "Creating Azure connection"
-#az login --service-principal -u $AZ_APPID -p $AZ_SECRET --tenant $AZ_TENANTID
-
-
 #Terraform init - add providers
 echo "Initializing Terraform providers"
 terraform init
