@@ -47,3 +47,8 @@ La idea de esta segunda parte, es que utilices Data Type de tipo Map() en el fic
 ```
 
 Por ultimo, una vez implementes el uso de map() en tu ejercicio, deberás implementar una variable de salida que arroje el FQDN de la maquina virtual, por el cual podrás conectarte a ella mediante RDP.
+
+
+Seguridad durante la implementación:
+
+ A fin de seguir buenas prácticas durante la implementación del ejercicio, las credenciales de API de Azure no podran exponerse en ningún momento en texto plano en el repositorio. Para ello deberás hacer uso de las variables correspondientes, o implementar mecanismos para que las variables no salgan de tu equipo.
