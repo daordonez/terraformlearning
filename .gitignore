@@ -8,7 +8,7 @@
 ehthumbs.db
 Thumbs.db
 #ENVs excercices
-/exercices/env*
+**env.*
 # Local .terraform directories
 **/.terraform/*
 
