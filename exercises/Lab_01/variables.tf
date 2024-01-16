@@ -29,3 +29,9 @@ variable "environment" {
     default = "TST"
   
 }
+
+variable "rg_location" {
+  type = string
+  description = "Define resource AZ region"
+  default = "westeurope"
+}

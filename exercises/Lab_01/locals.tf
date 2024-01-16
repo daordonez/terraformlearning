@@ -12,4 +12,6 @@ locals {
     Project     = "${var.company}-${var.project_name}"
     BillingCode = var.billing_code
   }
+
+  location = var.rg_location
 }
