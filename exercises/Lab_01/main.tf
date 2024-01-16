@@ -54,6 +54,8 @@ resource "azurerm_public_ip" "lab01-PubIP" {
   location            = local.location
   resource_group_name = azurerm_resource_group.rg-01.name
   allocation_method   = "Dynamic"
+
+  tags = local.common_tags
 }
 
 #4. Creating network interface
@@ -68,14 +70,15 @@ resource "azurerm_network_interface" "lab01-nic" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.lab01-PubIP.id
   }
+
+  tags = local.common_tags
 }
 #5. Creating network security group
-
-
 resource "azurerm_network_security_group" "lab01-nsg-nic" {
   name                = "lab01NetworkSecurityGroup"
   location            = local.location
   resource_group_name = azurerm_resource_group.rg-01.name
+  tags = local.common_tags
 }
 #5.1 Set nsg security rule
 resource "azurerm_network_security_rule" "lab01-nsg-rule" {
