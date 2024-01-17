@@ -35,3 +35,9 @@ variable "rg_location" {
   description = "Define resource AZ region"
   default = "westeurope"
 }
+
+variable "vm_username" {
+  type = string
+  description = "Define admin user name"
+  default = "dordolnx01"
+}

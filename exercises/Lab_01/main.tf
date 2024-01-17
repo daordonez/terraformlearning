@@ -6,7 +6,7 @@ terraform {
       version = "~> 3.0.2"
     }
 
-    #In order to create the SSH pair keys, we'll use 'azapi'
+    #In order to create the SSH key pair, we'll use 'azapi'
     azapi = {
       source = "azure/azapi"
       version = "~>1.5"
@@ -112,4 +112,55 @@ resource "azurerm_network_security_rule" "lab01-nsg-rule" {
 resource "azurerm_network_interface_security_group_association" "lab01-nsgnic-assoc" {
   network_interface_id = azurerm_network_interface.lab01-nic.id
   network_security_group_id = azurerm_network_security_group.lab01-nsg-nic.id
+}
+
+#5. Create new SSH key pair in order to connect to the linux vm
+# See ssh.tf generation. This private key will be setted up into the vm during deployment
+
+#6. It's mandatory to have on storage account for boot diagnostics
+resource "azurerm_storage_account" "stg-bootDiagnostics-vmLinux" {
+  name = "tstweurstgboot"
+  location = local.location
+  resource_group_name = azurerm_resource_group.rg-01.name
+  account_tier = "Standard"
+  account_replication_type = "LRS"
+
+  tags = local.common_tags
+}
+
+#7. Linux VM
+resource "azurerm_linux_virtual_machine" "lab01-vmLinux" {
+  name = "TST-WEUR-VMLinux01"
+  location = local.location
+  resource_group_name = azurerm_resource_group.rg-01.name
+  network_interface_ids = [ azurerm_network_interface.lab01-nic.id ]
+  size = "Standard_B2ts_v2"
+
+  os_disk {
+    name = "DiskVm-linux01"
+    caching = "ReadWrite"
+    storage_account_type = "Premium_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
+    version   = "latest"
+  }
+
+  computer_name = "TSTWEURLNX01"
+  admin_username = var.vm_username
+
+  admin_ssh_key {
+    username = var.vm_username
+    public_key = jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
+  }
+
+  boot_diagnostics {
+    storage_account_uri = azurerm_storage_account.stg-bootDiagnostics-vmLinux.primary_blob_endpoint
+  }
+
+  tags = local.common_tags
+
 }
