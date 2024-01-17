@@ -5,6 +5,18 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.0.2"
     }
+
+    #In order to create the SSH pair keys, we'll use 'azapi'
+    azapi = {
+      source = "azure/azapi"
+      version = "~>1.5"
+    }
+
+    #It's also required to use 'random' from hashicorp
+    random = {
+      source = "hashicorp/random"
+      version = "~>3.0"
+    }
   }
 
   #Which will be the minimum version required
