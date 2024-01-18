@@ -94,7 +94,7 @@ resource "azurerm_network_security_group" "lab01-nsg-nic" {
 }
 #5.1 Set nsg security rules
 #SSH
-resource "azurerm_network_security_rule" "lab01-nsg-rule" {
+resource "azurerm_network_security_rule" "nsg-rule-ssh" {
   name                        = "SSH"
   priority                    = "1001"
   direction                   = "Inbound"
@@ -102,6 +102,20 @@ resource "azurerm_network_security_rule" "lab01-nsg-rule" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "22"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg-01.name
+  network_security_group_name = azurerm_network_security_group.lab01-nsg-nic.name
+
+}
+resource "azurerm_network_security_rule" "nsg-rule-http" {
+  name                        = "HTTP"
+  priority                    = "1002"
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.rg-01.name
