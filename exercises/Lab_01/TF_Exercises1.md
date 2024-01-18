@@ -46,7 +46,7 @@ La idea de esta segunda parte, es que utilices Data Type de tipo Map() en el fic
 
 ```
 
-Por ultimo, una vez implementes el uso de map() en tu ejercicio, deberás implementar una variable de salida que arroje el FQDN de la maquina virtual, por el cual podrás conectarte a ella mediante RDP.
+Por ultimo, una vez implementes el uso de map() en tu ejercicio, deberás implementar una variable de salida que arroje la URL de la maquina virtual, mediante la cual puedas comprobar el correcto funcionamiento del servidor Nginx y el mensaje de confirmación.
 
 
 Seguridad durante la implementación:
