@@ -23,7 +23,3 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
   response_export_values = ["publicKey", "privateKey"]
 }
 
-#Output key values
-#output "key_data" {
-#  value = jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
-#}

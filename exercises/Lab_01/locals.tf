@@ -15,6 +15,9 @@ locals {
 
   location = var.rg_location
 
+  #child dns zone name
+  dnszone_name = "tf-${var.project_name}"
+
   #This data will be pushed on the linux vm once created
   custom_data = base64encode(file("./nginx.sh"))
 }
