@@ -8,13 +8,13 @@ terraform {
 
     #In order to create the SSH key pair, we'll use 'azapi'
     azapi = {
-      source = "azure/azapi"
+      source  = "azure/azapi"
       version = "~>1.5"
     }
 
     #It's also required to use 'random' from hashicorp
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
       version = "~>3.0"
     }
   }
@@ -90,7 +90,7 @@ resource "azurerm_network_security_group" "lab01-nsg-nic" {
   name                = "lab01NetworkSecurityGroup"
   location            = local.location
   resource_group_name = azurerm_resource_group.rg-01.name
-  tags = local.common_tags
+  tags                = local.common_tags
 }
 #5.1 Set nsg security rules
 #SSH
@@ -126,7 +126,7 @@ resource "azurerm_network_security_rule" "nsg-rule-http" {
 
 #5.2 Connecting nsg to NIC
 resource "azurerm_network_interface_security_group_association" "lab01-nsgnic-assoc" {
-  network_interface_id = azurerm_network_interface.lab01-nic.id
+  network_interface_id      = azurerm_network_interface.lab01-nic.id
   network_security_group_id = azurerm_network_security_group.lab01-nsg-nic.id
 }
 
@@ -135,10 +135,10 @@ resource "azurerm_network_interface_security_group_association" "lab01-nsgnic-as
 
 #6. It's mandatory to have on storage account for boot diagnostics
 resource "azurerm_storage_account" "stg-bootDiagnostics-vmLinux" {
-  name = "tstweurstgboot"
-  location = local.location
-  resource_group_name = azurerm_resource_group.rg-01.name
-  account_tier = "Standard"
+  name                     = "tstweurstgboot"
+  location                 = local.location
+  resource_group_name      = azurerm_resource_group.rg-01.name
+  account_tier             = "Standard"
   account_replication_type = "LRS"
 
   tags = local.common_tags
@@ -146,15 +146,15 @@ resource "azurerm_storage_account" "stg-bootDiagnostics-vmLinux" {
 
 #7. Linux VM
 resource "azurerm_linux_virtual_machine" "lab01-vmLinux" {
-  name = "TST-WEUR-VMLinux01"
-  location = local.location
-  resource_group_name = azurerm_resource_group.rg-01.name
-  network_interface_ids = [ azurerm_network_interface.lab01-nic.id ]
-  size = "Standard_B2ts_v2"
+  name                  = "TST-WEUR-VMLinux01"
+  location              = local.location
+  resource_group_name   = azurerm_resource_group.rg-01.name
+  network_interface_ids = [azurerm_network_interface.lab01-nic.id]
+  size                  = "Standard_B2ts_v2"
 
   os_disk {
-    name = "DiskVm-linux01"
-    caching = "ReadWrite"
+    name                 = "DiskVm-linux01"
+    caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"
   }
 
@@ -165,11 +165,11 @@ resource "azurerm_linux_virtual_machine" "lab01-vmLinux" {
     version   = "latest"
   }
 
-  computer_name = "TSTWEURLNX01"
+  computer_name  = "TSTWEURLNX01"
   admin_username = var.vm_username
 
   admin_ssh_key {
-    username = var.vm_username
+    username   = var.vm_username
     public_key = jsondecode(azapi_resource_action.ssh_public_key_gen.output).publicKey
   }
 

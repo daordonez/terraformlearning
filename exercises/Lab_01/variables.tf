@@ -1,43 +1,43 @@
 variable "AZ_APPID" {
-    sensitive = true
+  sensitive = true
 }
 variable "AZ_TENANTID" {}
 variable "AZ_SECRET" {
-    sensitive = true
+  sensitive = true
 }
 variable "AZ_SUBSID" {}
 
 variable "company" {
-  type = string
+  type        = string
   description = "Company name for tagging purpose"
-  default = "DordoLabs"
+  default     = "DordoLabs"
 }
 variable "project_name" {
-  type = string
+  type        = string
   description = "Project name for tagging purpose"
-  default = "Lab-01"
+  default     = "Lab-01"
 }
 variable "billing_code" {
-  type = string
+  type        = string
   description = "Billing code for tagging purpose"
-  default = "201219DN"
+  default     = "201219DN"
 }
 
 variable "environment" {
-    type = string
-    description = "Defines deployment environment"
-    default = "TST"
-  
+  type        = string
+  description = "Defines deployment environment"
+  default     = "TST"
+
 }
 
 variable "rg_location" {
-  type = string
+  type        = string
   description = "Define resource AZ region"
-  default = "westeurope"
+  default     = "westeurope"
 }
 
 variable "vm_username" {
-  type = string
+  type        = string
   description = "Define admin user name"
-  default = "dordolnx01"
+  default     = "dordolnx01"
 }
