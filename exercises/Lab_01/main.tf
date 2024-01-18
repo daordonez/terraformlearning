@@ -37,7 +37,7 @@ provider "azurerm" {
 #1 resource creation
 # Resource group
 resource "azurerm_resource_group" "rg-01" {
-  name     = "TST-WEUR-TFLAB1"
+  name     = var.rg_name
   location = local.location
 
   tags = local.common_tags
@@ -182,4 +182,29 @@ resource "azurerm_linux_virtual_machine" "lab01-vmLinux" {
 
   tags = local.common_tags
 
+}
+
+
+#DNS Experimental zone
+#8 . Creating a delegated DNS zone for this vm
+#Root DNS zone
+resource "azurerm_dns_zone" "dns-root-zone" {
+  name = var.dns_root_zone
+  resource_group_name = var.rg_name_dns_root
+}
+#Child DNS zone
+resource "azurerm_dns_zone" "dns-child-zone" {
+  name = "${local.dnszone_name}.${azurerm_dns_zone.dns-root-zone.name}"
+  resource_group_name = azurerm_resource_group.rg-01.name
+
+  tags = local.common_tags
+}
+#create NS records for child zone in root zone
+resource "azurerm_dns_ns_record" "dns-ns-child" {
+  name = local.dnszone_name
+  zone_name = azurerm_dns_zone.dns-root-zone.name
+  resource_group_name = azurerm_dns_zone.dns-root-zone.resource_group_name
+  ttl = 60
+
+  records = azurerm_dns_zone.dns-child-zone.name_servers
 }
