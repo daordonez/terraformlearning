@@ -92,7 +92,8 @@ resource "azurerm_network_security_group" "lab01-nsg-nic" {
   resource_group_name = azurerm_resource_group.rg-01.name
   tags = local.common_tags
 }
-#5.1 Set nsg security rule
+#5.1 Set nsg security rules
+#SSH
 resource "azurerm_network_security_rule" "lab01-nsg-rule" {
   name                        = "SSH"
   priority                    = "1001"
@@ -107,6 +108,7 @@ resource "azurerm_network_security_rule" "lab01-nsg-rule" {
   network_security_group_name = azurerm_network_security_group.lab01-nsg-nic.name
 
 }
+#HTTP (once nginx created)
 
 #5.2 Connecting nsg to NIC
 resource "azurerm_network_interface_security_group_association" "lab01-nsgnic-assoc" {
@@ -160,6 +162,9 @@ resource "azurerm_linux_virtual_machine" "lab01-vmLinux" {
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.stg-bootDiagnostics-vmLinux.primary_blob_endpoint
   }
+
+  #7.1 Pushing nginx installation and 'hello world' string
+  custom_data = local.custom_data
 
   tags = local.common_tags
 

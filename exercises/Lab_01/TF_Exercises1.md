@@ -13,7 +13,7 @@ Se requiere crear los siguientes recursos en Azure mediante IaC con Terraform:
 - Grupo de recursos con nombre: TST-WESTEUR-TFLAB1
 •	VNET con el modificando el direccionamiento, es decir, reducir el número de IPs asignables dentro del rango CIDR: 10.0.0.0/28
 •	Maquina virtual B2s - Linux
-•	IP Publica para poder acceder a la maquina desde internet a través de RDP
+•	IP Publica para poder acceder a la maquina desde internet a través de SSH
 •	Instalar servidor Nginx con mensaje : “Acabas de completar tu primer ejercicio de IaC con Terraform”
 
 Notas del ejercicio:
