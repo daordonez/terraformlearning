@@ -13,8 +13,8 @@ terraform {
 provider "azurerm" {
   features {}
 
-  client_id = local.az.app
-  client_secret = local.az.secret
-  tenant_id = local.az.tenant
+  client_id       = local.az.app
+  client_secret   = local.az.secret
+  tenant_id       = local.az.tenant
   subscription_id = local.az.subs
 }
