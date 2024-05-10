@@ -18,3 +18,8 @@ variable "location" {
   description = "Set the default region for the resource group"
   default     = "westeurope"
 }
+
+variable "PublicDnsZone" {
+  type = string
+  default = "monojaus.com"
+}
