@@ -1,0 +1,4 @@
+##### AZ CLI commands #####
+#Get al resources in a given resource group
+rg="PRO-WEUR-LNX"
+az resource list -g $rg --query "[].{type, name, id}" -o table

@@ -3,3 +3,4 @@ resource "azurerm_resource_group" "rg-main" {
   location = local.rg.location
   name     = local.rg.name
 }
+
