@@ -20,6 +20,22 @@ variable "location" {
 }
 
 variable "PublicDnsZone" {
-  type = string
+  type    = string
   default = "monojaus.com"
+}
+
+variable "ResourcePrefix" {
+  type        = string
+  description = "Set a common prefix for all of the resources"
+  default     = "pweurlnx"
+}
+
+variable "ProjectInfo" {
+  type = map(string)
+  description = "Describes project minimal information"
+  default = {
+    "ENV" = "develop"
+    "Company" = "dordo-labs"
+    "Project" = "tf-ex04"
+  }
 }
