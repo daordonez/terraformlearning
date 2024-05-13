@@ -58,9 +58,101 @@ resource "azurerm_network_interface" "nic-vm01" {
 }
 
 resource "azurerm_network_security_group" "nsg-vm01" {
-  name = "${local.rg.prefix}-nsg"
+  name                = "${local.rg.prefix}-nsg"
+  resource_group_name = azurerm_resource_group.rg-main.name
+  location            = azurerm_resource_group.rg-main.location
+
+  tags = local.common_tags
+}
+
+resource "azurerm_network_security_rule" "ssh-InboundRule-nsg" {
+  name                        = "SSH"
+  resource_group_name         = azurerm_resource_group.rg-main.name
+  network_security_group_name = azurerm_network_security_group.nsg-vm01.name
+  source_address_prefixes     = var.AllowedIPs
+
+  destination_port_range = 22
+  access                 = "Allow"
+  protocol               = "Tcp"
+  direction              = "Inbound"
+  priority               = 300
+}
+
+resource "azurerm_network_security_rule" "https-InboundRule-nsg" {
+  name                        = "AllowAnyHTTPSInbound"
+  resource_group_name         = azurerm_resource_group.rg-main.name
+  network_security_group_name = azurerm_network_security_group.nsg-vm01.name
+  source_address_prefixes     = var.AllowedIPs
+
+  destination_port_range = 443
+  access                 = "Allow"
+  protocol               = "Tcp"
+  direction              = "Inbound"
+  priority               = 320
+}
+
+resource "azurerm_network_security_rule" "http-InboundRule-nsg" {
+  name                        = "AllowAnyHTTPInbound"
+  resource_group_name         = azurerm_resource_group.rg-main.name
+  network_security_group_name = azurerm_network_security_group.nsg-vm01.name
+  source_address_prefixes     = var.AllowedIPs
+
+  destination_port_range = 80
+  access                 = "Allow"
+  protocol               = "Tcp"
+  direction              = "Inbound"
+  priority               = 330
+}
+resource "azurerm_network_security_rule" "custom01-InboundRule-nsg" {
+  name                        = "NPMAdmin_AllowMyIpAddressCustom81Inbound"
+  resource_group_name         = azurerm_resource_group.rg-main.name
+  network_security_group_name = azurerm_network_security_group.nsg-vm01.name
+  source_address_prefixes     = var.AllowedIPs
+
+  destination_port_range = 81
+  access                 = "Allow"
+  protocol               = "Tcp"
+  direction              = "Inbound"
+  priority               = 340
+
+}
+
+resource "azurerm_managed_disk" "vm01-disk02" {
+  name = "nc2"
   resource_group_name = azurerm_resource_group.rg-main.name
   location = azurerm_resource_group.rg-main.location
+  storage_account_type = "StandardSSD_LRS"
+  create_option = "Empty"
+
+  tags = local.common_tags
+}
+
+resource "azurerm_linux_virtual_machine" "vm01-linux" {
+  name                  = local.rg.prefix
+  resource_group_name   = azurerm_resource_group.rg-main.name
+  location              = azurerm_resource_group.rg-main.location
+  admin_username        = var.vm_admin_username
+  size                  = var.vm_size
+  network_interface_ids = [azurerm_network_interface.nic-vm01.id]
+  secure_boot_enabled   = true
+  vtpm_enabled          = true
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Premium_LRS"
+  }
+
+  admin_ssh_key {
+    username   = var.vm_admin_username
+    public_key = file("./ssh/id_rsa.pub")
+  }
+
+  source_image_reference { # forces replacement
+    offer     = "0001-com-ubuntu-server-focal"
+    publisher = "canonical"
+    sku       = "20_04-lts-gen2"
+    version   = "latest"
+  }
 
   tags = local.common_tags
 }

@@ -10,3 +10,6 @@ az network vnet subnet list -g $rg --vnet-name $vnetName --query "[].{Name:name,
 
 #Get details for a given public ip
 az network public-ip show -n "pweurlnx-ip" -g $rg
+
+#Get all the nsg rules from a given nsg
+az network nsg rule list -g $rg --nsg-name "pweurlnx-nsg" --query "[].{Name:name, ID:id}"

@@ -24,7 +24,7 @@ import {
 import {
   to = azurerm_dns_zone.dnsZone-main
   id = "/subscriptions/dfc1c669-4460-40a1-8d6a-3469f2b10f23/resourceGroups/PRO-WEUR-LNX/providers/Microsoft.Network/dnszones/monojaus.com"
-} 
+}
 
 import {
   to = azurerm_public_ip.pIP01
@@ -41,6 +41,35 @@ import {
   id = "/subscriptions/dfc1c669-4460-40a1-8d6a-3469f2b10f23/resourceGroups/PRO-WEUR-LNX/providers/Microsoft.Network/networkSecurityGroups/pweurlnx-nsg"
 }
 
+import {
+  to = azurerm_network_security_rule.ssh-InboundRule-nsg
+  id = "/subscriptions/dfc1c669-4460-40a1-8d6a-3469f2b10f23/resourceGroups/PRO-WEUR-LNX/providers/Microsoft.Network/networkSecurityGroups/pweurlnx-nsg/securityRules/SSH"
+}
+
+import {
+  to = azurerm_network_security_rule.https-InboundRule-nsg
+  id = "/subscriptions/dfc1c669-4460-40a1-8d6a-3469f2b10f23/resourceGroups/PRO-WEUR-LNX/providers/Microsoft.Network/networkSecurityGroups/pweurlnx-nsg/securityRules/AllowAnyHTTPSInbound"
+}
+
+import {
+  to = azurerm_network_security_rule.http-InboundRule-nsg
+  id = "/subscriptions/dfc1c669-4460-40a1-8d6a-3469f2b10f23/resourceGroups/PRO-WEUR-LNX/providers/Microsoft.Network/networkSecurityGroups/pweurlnx-nsg/securityRules/AllowAnyHTTPInbound"
+}
+
+import {
+  to = azurerm_network_security_rule.custom01-InboundRule-nsg
+  id = "/subscriptions/dfc1c669-4460-40a1-8d6a-3469f2b10f23/resourceGroups/PRO-WEUR-LNX/providers/Microsoft.Network/networkSecurityGroups/pweurlnx-nsg/securityRules/NPMAdmin_AllowMyIpAddressCustom81Inbound"
+}
+
+import {
+  to = azurerm_managed_disk.vm01-disk02
+  id = "/subscriptions/dfc1c669-4460-40a1-8d6a-3469f2b10f23/resourceGroups/PRO-WEUR-LNX/providers/Microsoft.Compute/disks/nc2"
+}
+
+import {
+  to = azurerm_linux_virtual_machine.vm01-linux
+  id = "/subscriptions/dfc1c669-4460-40a1-8d6a-3469f2b10f23/resourceGroups/PRO-WEUR-LNX/providers/Microsoft.Compute/virtualMachines/pweurlnx"
+}
 
 /* 
 import {
