@@ -24,6 +24,24 @@ variable "PublicDnsZone" {
   default = "monojaus.com"
 }
 
+variable "AllowedIPs" {
+  type        = list(string)
+  description = "Theses IPs are intented to allow communications of the main server"
+  default     = ["88.17.191.106", "98.71.215.242"]
+}
+
+variable "vm_size" {
+  type        = string
+  description = "Sizing of the main virtual machine of the group"
+  default     = "Standard_B2ms"
+}
+
+variable "vm_admin_username" {
+  type        = string
+  description = "It defines the default admin user even if it's disabled"
+  default     = "dordonc"
+}
+
 variable "ResourcePrefix" {
   type        = string
   description = "Set a common prefix for all of the resources"
@@ -31,10 +49,10 @@ variable "ResourcePrefix" {
 }
 
 variable "ProjectInfo" {
-  type = map(string)
+  type        = map(string)
   description = "Describes project minimal information"
   default = {
-    "ENV" = "develop"
+    "ENV"     = "develop"
     "Company" = "dordo-labs"
     "Project" = "tf-ex04"
   }
