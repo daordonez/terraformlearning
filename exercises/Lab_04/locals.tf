@@ -6,14 +6,11 @@ locals {
     subscription = var.AZ_SUBSCRIPTION_ID
   }
 
-  common_tags = {
-    Environment = ""
-    Company     = ""
-    Project     = ""
-  }
+  common_tags = var.ProjectInfo
 
   rg = {
     location = var.location
     name     = var.rg_name
+    prefix   = var.ResourcePrefix
   }
 }
