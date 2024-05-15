@@ -52,8 +52,8 @@ variable "ProjectInfo" {
   type        = map(string)
   description = "Describes project minimal information"
   default = {
-    "ENV"     = "develop"
+    "ENV"     = "PRO"
     "Company" = "dordo-labs"
-    "Project" = "tf-ex04"
+    "Project" = "MJ-home"
   }
 }
