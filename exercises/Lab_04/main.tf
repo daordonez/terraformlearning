@@ -52,6 +52,7 @@ resource "azurerm_network_interface" "nic-vm01" {
     name                          = "nic-vm01"
     subnet_id                     = azurerm_subnet.subnet01.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.pIP01.id
   }
 
   tags = local.common_tags
@@ -70,6 +71,7 @@ resource "azurerm_network_security_rule" "ssh-InboundRule-nsg" {
   resource_group_name         = azurerm_resource_group.rg-main.name
   network_security_group_name = azurerm_network_security_group.nsg-vm01.name
   source_address_prefixes     = var.AllowedIPs
+  source_port_range = "*"
 
   destination_port_range = 22
   access                 = "Allow"
@@ -82,7 +84,7 @@ resource "azurerm_network_security_rule" "https-InboundRule-nsg" {
   name                        = "AllowAnyHTTPSInbound"
   resource_group_name         = azurerm_resource_group.rg-main.name
   network_security_group_name = azurerm_network_security_group.nsg-vm01.name
-  source_address_prefixes     = var.AllowedIPs
+  source_port_range = "*"
 
   destination_port_range = 443
   access                 = "Allow"
@@ -95,7 +97,7 @@ resource "azurerm_network_security_rule" "http-InboundRule-nsg" {
   name                        = "AllowAnyHTTPInbound"
   resource_group_name         = azurerm_resource_group.rg-main.name
   network_security_group_name = azurerm_network_security_group.nsg-vm01.name
-  source_address_prefixes     = var.AllowedIPs
+  source_port_range = "*"
 
   destination_port_range = 80
   access                 = "Allow"
@@ -116,7 +118,6 @@ resource "azurerm_network_security_rule" "custom01-InboundRule-nsg" {
   priority               = 340
 
 }
-
 resource "azurerm_managed_disk" "vm01-disk02" {
   name = "nc2"
   resource_group_name = azurerm_resource_group.rg-main.name
@@ -152,6 +153,10 @@ resource "azurerm_linux_virtual_machine" "vm01-linux" {
     publisher = "canonical"
     sku       = "20_04-lts-gen2"
     version   = "latest"
+  }
+
+  additional_capabilities {
+    ultra_ssd_enabled = false
   }
 
   tags = local.common_tags
