@@ -1,0 +1,15 @@
+##### AZ CLI commands #####
+#Get al resources in a given resource group
+rg="PRO-WEUR-LNX"
+az resource list -g $rg --query "[].{type, name, id}" -o table
+
+
+#Get all subnetes in a vnet
+vnetName="pweurlnx-vnet"
+az network vnet subnet list -g $rg --vnet-name $vnetName --query "[].{Name:name, AddrPref:addressPrefix, ID:id}" -o table
+
+#Get details for a given public ip
+az network public-ip show -n "pweurlnx-ip" -g $rg
+
+#Get all the nsg rules from a given nsg
+az network nsg rule list -g $rg --nsg-name "pweurlnx-nsg" --query "[].{Name:name, ID:id}"
