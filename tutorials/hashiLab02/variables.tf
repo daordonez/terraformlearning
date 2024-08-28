@@ -3,11 +3,5 @@
 variable "pet_name_prefix" {
   type = string
   description = "A string to prefix the name with."
-  default = "pet"
-}
-
-variable "pet_name_length" {
-  type = number
-  description = "The length (in words) of the pet name. Defaults to 2"
-  default     = 2
+  default = "lab02"
 }
