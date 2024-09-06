@@ -12,6 +12,8 @@ Thumbs.db
 # Local .terraform directories
 **/.terraform/*
 
+#Terraform sensitive vars
+**.tfvars
 # .tfstate files
 *.tfstate
 *.tfstate.*
