@@ -44,4 +44,5 @@ module "hello" {
   }
 
   some_key = var.secret_key
+  #Foo
 }
